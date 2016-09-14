@@ -7,7 +7,6 @@
         <a href="#" class="list-group-item">Withdrawal</a>
         <!-- more transaction types -->
       </div>
-
       <h4 class="filter-header">Categoría <span>Selecciona para filtrar</span></h4>
       <div class="list-group filter-type">
         <a href="#" class="list-group-item">Restaurants</a>
@@ -30,10 +29,9 @@
           <div class="summary-label">Average</div>
         </div>
       </div>
-
       <div class="row" style="margin-top: 20px;">
         <div class="col-md-12">
-          <a href="#" class="btn btn-success pull-left"><span class="glyphicon glyphicon-plus"></span> New Expense</a>
+          <%= link_to '<span class="glyphicon glyphicon-plus"></span> Nuevo gasto'.html_safe, new_expense_path, remote: true, class: "btn btn-success pull-left"%>
           <h4 class="dropdown pull-right">
             <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown">April 2016 <span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu">
@@ -55,27 +53,27 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="date">
-              <div class="day">24</div>
-              <div class="month">Apr</div>
-            </td>
-            <td>
-              <div>
-                <span class="type">Purchase</span>
-              </div>
-              <div>
-                <span class="concept">Example concept</span>
-              </div>
-            </td>
-            <td class="category text-right">Restauratns</td>
-            <td class="text-right" style="width: 170px;">
-              <div class="amount">$1,000,000</div>
-              <div class="actions">
-                <a href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                <a href="#"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-            </td>
-          </tr>
+          <% @expenses.each do |expense| %>
+            <tr id="<%= expense.id %>">
+              <td class="date">
+                <div class="day"><%= l expense.created_at, format: "%d" %></div>
+                <div class="month"><%= l expense.created_at, format: "%b" %></div>
+              </td>
+              <td>
+                <div>
+                  <span class="concept"><%= expense.concept %></span>
+                </div>
+              </td>
+              <td class="category text-right"><%= expense.category %></td>
+              <td class="text-right" style="width: 170px;">
+                <div class="amount"><%= number_to_currency(expense.amount)%></div>
+                  <div class="actions">
+                    <a href="#"><span class="glyphicon glyphicon-edit"></span><%= link_to 'Edit', edit_expense_path(expense), remote: true %></a>
+                    <a href="#"><span class="glyphicon glyphicon-trash"></span><%= link_to 'Borrar', expense_path(expense), method: :delete, data: {confirm: '¿Estas seguro de eliminar ste gasto?'}, remote: true %></a>
+                  </div>
+              </td>
+            </tr>
+          <% end %>
         </tbody>
       </table>
     </div>

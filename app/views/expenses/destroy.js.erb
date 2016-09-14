@@ -1,0 +1,4 @@
+// $('#<%= expense.id').remove();
+var expense = $('tr#<%= @expense.id %>');
+expense.remove();
+$('.alert-success').html("El gasto ha sido eliminado con éxito").show();

@@ -1,0 +1,12 @@
+$("ul.errors").html("")
+<% if @expense.errors.empty? %>
+  // add the row to the table, show alert and hide modal
+  $('table tbody').append(' <%= j render "row", expense: @expense %>');
+  $('.alert-success').html("El gasto ha sido creado con éxito (js)").show();
+  $('#expense-modal').modal('hide');
+<% else %>
+  //show errors
+  <% @expense.errors.full_messages.each do |message| %>
+    $("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+  <% end %>
+<% end %>

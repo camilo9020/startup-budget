@@ -42,6 +42,11 @@
       </div>
     </nav>
     <div class="container">
+      <% flash.each do |message_type, message| %>
+        <% unless message.blank? %>
+        <div class="alert alert-<%= message_type %> alert-growl" id="flash"><%= message %></div>
+        <% end %>
+      <% end %>
       <%= yield %>
     </div>
   </body>

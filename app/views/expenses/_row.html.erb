@@ -1,0 +1,19 @@
+<tr id="<%= expense.id %>">
+  <td class="date">
+    <div class="day"><%= l expense.created_at, format: "%d" %></div>
+    <div class="month"><%= l expense.created_at, format: "%b" %></div>
+  </td>
+  <td>
+    <div>
+      <span class="concept"><%= expense.concept %></span>
+    </div>
+  </td>
+  <td class="category text-right"><%= expense.category %></td>
+  <td class="text-right" style="width: 170px;">
+    <div class="amount"><%= number_to_currency(expense.amount)%></div>
+    <div class="actions">
+      <a href="#"><span class="glyphicon glyphicon-edit"></span><%= link_to 'Edit', edit_expense_path(expense), remote: true %></a>
+      <a href="#"><span class="glyphicon glyphicon-trash"></span><%= link_to 'Borrar', expense_path(expense), method: :delete, data: {confirm: '¿Estas seguro de eliminar ste gasto?'}, remote: true %></a>
+    </div>
+  </td>
+</tr>
